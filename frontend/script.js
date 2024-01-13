@@ -1,3 +1,32 @@
+//create disasterIcons for each disaster.
+var disasterIcons = {
+  flood: L.icon({
+    iconUrl: 'media/flood.png', // Replace with the path to your icon
+    iconSize: [25, 41], // Size of the icon
+    iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+    popupAnchor: [1, -34] // Point from which the popup should open relative to the iconAnchor
+  }),
+  earthquake: L.icon({
+    iconUrl: 'media/earthquake.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34]
+  }),
+  tornado: L.icon({
+    iconUrl: 'media/tornado.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34]
+  }),
+  hurricane: L.icon({
+    iconUrl: 'media/hurricane.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34]
+  })
+};
+
+
 let markers = [];
 
 // Fetch JSON data from the backend
@@ -10,22 +39,28 @@ fetch("/", { method: "POST" })
     const data = JSON.parse(text);
 
     data.forEach((element) => {
-      let marker = L.marker([element.lat, element.long])
-        .addTo(map)
-        .bindPopup(
-          `Name: <strong>${element.Name}</strong> <br> Date: ${element.date} <br> Type: ${element.type} <br> Intensity: ${element.intensity} <br> Location (long, lat): ${element.long}, ${element.lat}`
-        );
-
+      let opacity = element.intensity / 10; // Adjust this logic as needed
+      opacity = Math.min(Math.max(opacity, 0.3), 1); // Ensure opacity is between 0.3 and 1
+    
+      let marker = L.marker([element.lat, element.long], {
+        icon: disasterIcons[element.type], // Use the icon corresponding to the element name or default
+        opacity: opacity
+      }).addTo(map).bindPopup(
+        `Name: <strong>${element.Name}</strong> <br> Date: ${element.date} <br> Type: ${element.type} <br> Intensity: ${element.intensity} <br> Location (long, lat): ${element.long}, ${element.lat}`
+      );
+    
       markers.push({
         Information: element,
         Marker: marker,
       });
-    });
+    });    
   })
   .catch((error) => console.error("Error:", error));
 
 //initialize the map, use a default position
-var map = L.map("map").setView([20, 30], 2);
+var map = L.map("map", {
+    worldCopyJump: true
+}).setView([20, 30], 2);
 
 //use free OpenStreetMap map tiles. This application is not for commercial use.
 const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
