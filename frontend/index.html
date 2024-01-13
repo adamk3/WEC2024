@@ -28,7 +28,7 @@
     <div id="map"></div>    
 
     <button id="addEventButton">Add Event</button>
-    <script>
+    <script> //scripts for iframe nested html environment
       document.getElementById("addEventButton").addEventListener("click", function() {
       document.getElementById("addButtonFrame").style.display = "block";
       // Hide the elements
@@ -55,6 +55,7 @@
       
       <div id="slider" class="font-slider">
         <label for="sliderValue" >Intensity filter:</label>
+        <br>
         <a>1</a>
         <input type="range" id="sliderValue" min="1" max="10" value="10">
         <a>10</a>

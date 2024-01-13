@@ -48,7 +48,7 @@ fetch("/", { method: "POST" })
       }).addTo(map).bindPopup(
         `Name: <strong>${element.Name}</strong> <br> Date: ${element.date} <br> Type: ${element.type} <br> Intensity: ${element.intensity} <br> Location (long, lat): ${element.long}, ${element.lat}`
       );
-    
+
       markers.push({
         Information: element,
         Marker: marker,
@@ -59,7 +59,7 @@ fetch("/", { method: "POST" })
 
 //initialize the map, use a default position
 var map = L.map("map", {
-    worldCopyJump: true
+    worldCopyJump: true //alow markers to loop around when scrolling to next map page
 }).setView([20, 30], 2);
 
 //use free OpenStreetMap map tiles. This application is not for commercial use.
