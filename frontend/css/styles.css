@@ -35,7 +35,7 @@ body, html {
 #addEventButton {
    position: relative;
    top: -80%;
-   margin-left: 6.5%;
+   margin-left: 20px;
    padding: 10px 20px;
    background-color: #54adcb; /* Green background */
    color: white; /* White text */
