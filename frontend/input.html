@@ -35,27 +35,39 @@
         />
         <label></label>
       </div>
-      <div>
+      <div id="slider">
         <input
-          type="text"
+          type="range"
           name="intensity"
           id="intensity"
-          placeholder="Intensity"
-          required
-          oninput="checkForm()"
+          min="1"
+          max="10"
+          step="1"
+          value="5"
+          oninput="updateSliderValue(this.value)"
         />
-        <label></label>
+        <label for="intensity">Intensity</label>
+        <output for="intensity" id="intensityOutput">5</output>
       </div>
+      <script> // Update the slider
+        function updateSliderValue(value) {
+          document.getElementById("intensityOutput").textContent = value;
+        }
+      </script>      
       <div>
-        <input
-          type="text"
+        <select
           name="type"
           id="type"
-          placeholder="Type"
           required
-          oninput="checkForm()"
-        />
-        <label></label>
+          onchange="checkForm()"
+        >
+          <option value="" disabled selected>Select a Type</option>
+          <option value="flood">flood</option>
+          <option value="hurricane">hurricane</option>
+          <option value="earthquake">earthquake</option>
+          <option value="tornado">tornado</option>
+        </select>
+        <label for="type"></label>
       </div>
       <div>
         <input
